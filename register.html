@@ -1,0 +1,140 @@
+{%  extends 'base.html' %}
+{% load static %}
+{% block title %}Регестрация{%  endblock %}
+{% block body %}
+    <nav class="navbar navbar-default color-nav">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">
+                    <img class="img-icon" src="{{ MEDIA_URL }}/image/icon.png">
+                </a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right color-text">
+<li><a class ="color-text" href="/create_group/">Добавить группу</a></li>
+                    {% if user.is_authenticated %}
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle color-text color-nav" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ user.username }} <span class="caret"></span></a>
+                            <ul class="dropdown-menu color-text color-nav">
+                                <li><a href="/logout/">Выйти</a></li>
+                            </ul>
+                        </li>
+                        {% else %}
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle color-text color-nav" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Вход или регистрация <span class="caret"></span></a>
+                            <ul class="dropdown-menu color-text color-nav">
+                                <li><a href="/login/"> Войти </a></li>
+                                <li><a href="/register/">Регистрация</a></li>
+                            </ul>
+                        </li>
+
+                        {% endif %}
+
+
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+      </nav>
+    <div>
+        <form class="form-signin" method="POST">
+            {%  csrf_token %}
+            {% if form.non_field_errors  %}
+                {% for error in form.non_field_errors %}
+                    <div class="error">
+                            {{ error|escape }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+            <div class="form-group row">
+                <label for="example-text-input" class="col-xs-2 col-form-label">Логин</label>
+                <div class="col-xs-10">
+                    {{ form.username }}
+                </div>
+            </div>
+            {% if form.username.errors %}
+                    {% for error in form.username.errors %}
+                        <div class="error">
+                            {{ error|escape }}
+                        </div>
+
+                    {% endfor %}
+            {% endif %}
+            <div class="form-group row">
+                <label for="example-password-input" class="col-xs-2 col-form-label">Пароль</label>
+                <div class="col-xs-10">
+                    {{ form.password1 }}
+                </div>
+            </div>
+            {% if form.password1.errors %}
+                    {% for error in form.password1.errors %}
+                        <div class="error">
+                            {{ error|escape }}
+                        </div>
+                    {% endfor %}
+            {% endif %}
+            <div class="form-group row">
+                <label for="example-password-input" class="col-xs-2 col-form-label">Повторите пароль</label>
+                <div class="col-xs-10">
+                    {{ form.password2 }}
+                </div>
+            </div>
+            {% if form.password2.errors %}
+                    {% for error in form.password2.errors %}
+                        <div class="error">
+                            {{ error|escape }}
+                        </div>
+                    {% endfor %}
+            {% endif %}
+
+            <div class="form-group row">
+                <label for="example-email-input" class="col-xs-2 col-form-label">Email</label>
+                <div class="col-xs-10">
+                    {{ form.email }}
+                </div>
+            </div>
+            {% if form.email.errors %}
+                    {% for error in form.email.errors %}
+                        <div class="error">
+                            {{ error|escape }}
+                        </div>
+                    {% endfor %}
+            {% endif %}
+            <div class="form-group row">
+                <label for="example-email-input" class="col-xs-2 col-form-label">Фамилия</label>
+                <div class="col-xs-10">
+                    {{ form.last_name }}
+                </div>
+            </div>
+            {% if form.last_name.errors %}
+                    {% for error in form.last_name.errors %}
+                        <div class="error">
+                            {{ error|escape }}
+                        </div>
+                    {% endfor %}
+            {% endif %}
+            <div class="form-group row">
+                <label for="example-email-input" class="col-xs-2 col-form-label">Имя</label>
+                <div class="col-xs-10">
+                    {{ form.first_name }}
+                </div>
+            </div>
+            {% if form.first_name.errors %}
+                    {% for error in form.first_name.errors %}
+                        <div class="error">
+                            {{ error|escape }}
+                        </div>
+                    {% endfor %}
+            {% endif %}
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Зарегистрироваться</button>
+        </form>
+    </div>
+{% endblock %}
